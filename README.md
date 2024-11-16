@@ -2,9 +2,9 @@
 
 This is the official implementation of the paper **Loss Landscape Convergence is Another Neural Scaling Law** by [Nikita Kiselev](https://github.com/kisnikser), Vladislav Meshkov, and [Andrey Grabovoy](https://github.com/andriygav).
 
-## Project Structure
+## Repository Structure
 
-The directory structure of the project is as follows:
+The repository structure is as follows:
 
 ```
 ├── configs             <- Configs
