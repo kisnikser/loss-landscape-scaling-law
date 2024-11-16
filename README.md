@@ -1,11 +1,6 @@
-<div align="center">
-
 # Loss Landscape Convergence is Another Neural Scaling Law
 
-</div>
-
 This is the official implementation of the paper **Loss Landscape Convergence is Another Neural Scaling Law** by [Nikita Kiselev](https://github.com/kisnikser), Vladislav Meshkov, and [Andrey Grabovoy](https://github.com/andriygav).
-
 
 ## Project Structure
 
