@@ -5,6 +5,6 @@ data:
 
 model:
   input_size: 784
-  hidden_size: 64
+  hidden_size: 128
   output_size: 10
-  num_layers: 16
+  num_layers: 6
