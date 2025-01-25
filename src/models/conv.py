@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 
+import numpy as np
+
 class ConvBlock(nn.Module):
     r"""
         Convolutional block
@@ -42,7 +44,7 @@ class ConvNet(nn.Module):
         )
 
     def _calc_flattened_size(self, channels_list, ker_size_list, input_sizes):
-        ker_delta = np.sum(ker_size_list) - len(ker_size_list)
+        ker_delta = np.sum(np.array(ker_size_list)-1)
         final_sizes = (input_sizes[0] - ker_delta, input_sizes[1] - ker_delta)
         return final_sizes[0]*final_sizes[1]*channels_list[-1]
 

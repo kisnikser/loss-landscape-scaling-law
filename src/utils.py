@@ -41,3 +41,20 @@ def create_losses_func(dataloader, criterion):
             model.device)
         return losses
     return calc_losses
+
+def get_mean_and_std(dataloader):
+    '''Compute the mean and std value of dataset.'''
+    mean = torch.zeros(3)
+    std = torch.zeros(3)
+    print('==> Computing mean and std..')
+    length = 0
+    for inputs, targets in dataloader:
+        for i in range(3):
+            for j in range(inputs.shape[0]):
+                mean[i] += inputs[j,i,:,:].mean()
+                std[i] += inputs[j,i,:,:].std()
+                length += 1
+    length/=3
+    mean.div_(length)
+    std.div_(length)
+    return mean, std

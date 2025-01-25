@@ -2,7 +2,6 @@ import copy
 import scipy.stats as sps
 import numpy as np
 
-
 from src.params_directions import create_random_direction
 from src.params_directions import init_from_params
 from src.params_directions import inplace_sum_models
