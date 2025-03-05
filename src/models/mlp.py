@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import numpy as np
 
 class MLP(nn.Module):
     r"""
@@ -9,9 +10,12 @@ class MLP(nn.Module):
         sizes_list list(int): list of layers sizes
         activation_class: activation after all linear layers
     """
-    def __init__(self, sizes_list, activation_class = nn.ReLU):
+    def __init__(self, layers_num, hidden, input_channels, input_sizes, classes):
         super(MLP, self).__init__()
+        sizes_list = [np.prod(input_sizes)*input_channels] + [hidden]*layers_num + [classes]
         self.layers = []
+
+        activation_class = nn.ReLU
         for in_size, out_size in zip(sizes_list[:-2], sizes_list[1:-1]):
             self.layers.append(nn.Sequential(
                 nn.Linear(in_size, out_size),

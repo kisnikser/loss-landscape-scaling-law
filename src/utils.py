@@ -5,6 +5,11 @@ import numpy as np
 
 from src.valid import valid
 
+def smooth(y, box_pts):
+    box = np.ones(box_pts)/box_pts
+    y_smooth = np.convolve(y, box, mode='same')
+    return y_smooth
+
 def init_dataloader(dataset_name, 
                  transform,
                  batch_size = 64, 
@@ -27,9 +32,9 @@ def init_dataloader(dataset_name,
                                 download = True,
                                 train = train_mode,
                                 transform = transform)
-    if size is not None:
+    if size is not None and size != -1:
         dataset = torch.utils.data.Subset(dataset, np.arange(size))
-    loader = DataLoader(dataset, batch_size=batch_size, shuffle=train_mode)
+    loader = DataLoader(dataset, batch_size=batch_size, shuffle=train_mode, num_workers = 2)
     return loader
 
 def create_losses_func(dataloader, criterion):

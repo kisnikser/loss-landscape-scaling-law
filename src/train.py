@@ -9,11 +9,10 @@ def train(model,
           train_dataloader,
           num_epochs, 
           device):
-
         model.train()
         # Train the network
         losses = []
-        for epoch in tqdm(range(num_epochs), desc='Train loop', leave=False):  # loop over the dataset multiple times
+        for epoch in range(num_epochs):  # loop over the dataset multiple times
             for x, y in train_dataloader:
                 x, y = x.to(device), y.to(device)
                 # zero the parameter gradients
