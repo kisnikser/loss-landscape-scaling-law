@@ -1,0 +1,25 @@
+{
+    "class": "conv",
+    "train_loss": 0.4056458022931348,
+    "val_loss": 1.5278673320059564,
+    "train_acc": 0.8673673273657289,
+    "val_acc": 0.5928542993630573,
+    "deviation": 0.29285722592543306,
+    "save_log_path": "results/hc_128/5_5",
+    "delta_vis_params": {
+        "mode": "random-subspace-proj",
+        "mode_params": {
+            "estim_func": "abs",
+            "sigma": 3,
+            "dim": 2
+        },
+        "num_samples": 32
+    },
+    "num_epochs": 32,
+    "loader_size": -1,
+    "layers_num": 1,
+    "hidden_channels": 128,
+    "kernel_size": 3,
+    "output_channels": 8,
+    "num_params": 84818
+}

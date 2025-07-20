@@ -1,10 +1,10 @@
 {
     "class": "conv",
-    "train_loss": 0.9104997000425977,
-    "val_loss": 0.990817607208422,
-    "train_acc": 0.6775095907928389,
-    "val_acc": 0.6461982484076433,
-    "deviation": 0.10482165435061463,
+    "train_loss": 0.9507894690536782,
+    "val_loss": 1.0189677385767555,
+    "train_acc": 0.6633032289002557,
+    "val_acc": 0.6393312101910829,
+    "deviation": 0.1057378049031774,
     "save_log_path": "results/hc2048/5_8",
     "delta_vis_params": {
         "mode": "random-subspace-proj",

@@ -15,10 +15,12 @@ class DeltaCalculator:
     def __init__(self, 
                  model, 
                  loader, 
-                 criterion):
+                 criterion,
+                 external_factor = 1.0):
         self.model = model
         self.calc_losses_func = create_losses_func(loader, criterion)
         self.directions = None
+        self.external_factor = external_factor
 
     def calc_differences(self, array):
         cum_mean = np.cumsum(array)/np.arange(1, len(array)+1)
@@ -28,7 +30,7 @@ class DeltaCalculator:
     def calc_shifted_losses(self, mode, mode_params):
         if mode == 'random-subspace-proj':
             if self.directions is None:
-                self.directions = [create_random_direction(self.model, external_factor=1.0) for _ in range(mode_params['dim'])]
+                self.directions = [create_random_direction(self.model, external_factor=self.external_factor) for _ in range(mode_params['dim'])]
             coefs = list(sps.norm(np.zeros(mode_params['dim']), mode_params['sigma']).rvs())
             target_add_params = [coef*d[i] for coef,d in zip(coefs, self.directions) for i in range(len(self.directions[0]))]
             

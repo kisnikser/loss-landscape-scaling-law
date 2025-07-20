@@ -8,8 +8,8 @@ import numpy as np
 import copy
 
 class DeltaCalcVisualizer:
-    def __init__(self, model, loader, criterion):
-        self.delta_calc = DeltaCalculator(model, loader, criterion)
+    def __init__(self, model, loader, criterion, external_factor = 1.0):
+        self.delta_calc = DeltaCalculator(model, loader, criterion, external_factor)
         pass
     def compare_params(self,
             mode, 
@@ -35,11 +35,11 @@ class DeltaCalcVisualizer:
             axs[1].plot(deltas * mult_coef, label = target_param)
 
         if params['estim_func'] == 'abs':
-            ylabels = ['$|L_{k+1} - L_k|$', '$|L_{k+1} - L_k|*k$']
+            ylabels = ['$\int_{w}|\mathcal{L}_{k+1}(w) - \mathcal{L}_k|(w)$', '$k\Delta_k$']
         elif params['estim_func'] == 'square':
-            ylabels = ['$|L_{k+1} - L_k|^2$', '$|L_{k+1} - L_k|^2*k^2$']
+            ylabels = ['$\int_{w}|\mathcal{L}_{k+1}(w) - \mathcal{L}_k|^2(w)$', '$k\Delta_k$']
         else:
-            ylabels = ['$(L_{k+1} - L_k)$', '$(L_{k+1} - L_k)*k$']
+            ylabels = ['$(\mathcal{L}_{k+1} - \mathcal{L}_k)$', '$k(\mathcal{L}_{k+1} - \mathcal{L}_k)*k$']
 
         axs[0].set(
             title = f'Compare {target_param_key}',
@@ -87,11 +87,11 @@ class DeltaCalcVisualizer:
             axs[1].plot(deltas * mult_coef, label = num_samples)
 
         if params['estim_func'] == 'abs':
-            ylabels = ['$|L_{k+1} - L_k|$', '$|L_{k+1} - L_k|*k$']
+            ylabels = ['$\int_{w}|\mathcal{L}_{k+1}(w) - \mathcal{L}_k|(w)$', '$k\Delta_k$']
         elif params['estim_func'] == 'square':
-            ylabels = ['$|L_{k+1} - L_k|^2$', '$|L_{k+1} - L_k|^2*k^2$']
+            ylabels = ['$\int_{w}|\mathcal{L}_{k+1}(w) - \mathcal{L}_k|^2(w)$', '$k\Delta_k$']
         else:
-            ylabels = ['$(L_{k+1} - L_k)$', '$(L_{k+1} - L_k)*k$']
+            ylabels = ['$(\mathcal{L}_{k+1} - \mathcal{L}_k)$', '$k(\mathcal{L}_{k+1} - \mathcal{L}_k)*k$']
 
         axs[0].set(
             title = f'Compare num_samples',

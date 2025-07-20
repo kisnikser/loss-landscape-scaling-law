@@ -67,8 +67,6 @@ class LossVisualizer:
         assert bounds is None or bounds[0] < bounds[1]
         grid_loss = self.grid_loss
         
-
-
         xs, ys = self._set_xy_grid(x_grid_bounds, y_grid_bounds) 
         xgrid, ygrid = np.meshgrid(xs, ys)
         zgrid1 = np.array([[np.mean(grid_loss[(x, y)][:size1]) for x in xs] for y in ys])
@@ -126,13 +124,17 @@ class LossVisualizer:
         ax_3d.set(
             title = title
         )
+        if bounds is not None:
+            ax_3d.set_zlim3d(bounds[0], bounds[1])
         surf = ax_3d.plot_surface(xgrid, ygrid, zgrid, linewidth=0, antialiased=False, cmap=cm.coolwarm, alpha = 1.0)
         fig.colorbar(surf, shrink=0.5, aspect=5)
         ax_3d.view_init(40, 20)
         plt.show() 
 
     def visualize(self, size = None, 
-                  x_grid_bounds = (-1, 1), y_grid_bounds = (-1, 1), z_grid_bounds = (-float('inf'), float('inf'))):
+                  x_grid_bounds = (-1, 1), 
+                  y_grid_bounds = (-1, 1), 
+                  z_grid_bounds = (-float('inf'), float('inf'))):
         grid_loss = self.grid_loss
 
         xs, ys = self._set_xy_grid(x_grid_bounds, y_grid_bounds) 
@@ -152,7 +154,17 @@ class LossVisualizer:
         else:
             zgrid = np.array([[bounds_func(np.mean(grid_loss[(x, y)][:size])) for x in xs] for y in ys])
             title = '$\mathcal{L}_{s}; $' + f's = {size}'
-        best_loss = np.round(np.min(zgrid), 2)
+
+        max_loss = np.max(np.array([[(np.mean(grid_loss[(x, y)])) for x in xs] for y in ys]))
+        best_loss = np.min(np.array([[(np.mean(grid_loss[(x, y)])) for x in xs] for y in ys]))
+
+        if z_grid_bounds[0] == -float('inf'):
+            z_grid_bounds[0] = best_loss
+        
+        if z_grid_bounds[1] == float('inf'):
+            z_grid_bounds[1] = max_loss
+
+        best_loss = np.round(best_loss, 3)
         title +=  f' optimal loss: {best_loss}'
 
         fig = plt.figure(figsize=(6, 6))
@@ -161,7 +173,16 @@ class LossVisualizer:
         ax_3d.set(
             title = title
         )
-        surf = ax_3d.plot_surface(xgrid, ygrid, zgrid, linewidth=0, antialiased=False, cmap=cm.coolwarm, alpha = 1.0)
+        surf = ax_3d.plot_surface(xgrid, 
+                ygrid, 
+                zgrid, 
+                linewidth=0, 
+                antialiased=False, 
+                cmap=cm.coolwarm, 
+                alpha = 1.0)
+
+        ax_3d.set_zlim3d(z_grid_bounds[0], z_grid_bounds[1])
+
         fig.colorbar(surf, shrink=0.5, aspect=5)
         ax_3d.view_init(40, 20)
         
